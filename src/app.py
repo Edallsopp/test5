@@ -17,7 +17,7 @@ app = Dash(__name__, title="PB Dashboard",external_stylesheets=[dbc.themes.SANDS
 server = app.server
 
 
-LOGO = 'assets/Boulangerie_logo_1.png'
+LOGO = 'assets/blue_noBG.png'
 def load_data(data_file: str) -> pd.DataFrame:
     '''
     Load data from /data directory
@@ -66,7 +66,7 @@ group_sales = df.groupby(['Date']).agg({'Net sales':'sum'}).reset_index()
 
 navbar = dbc.Navbar(id= 'navbar', children = [
     dbc.Row([
-        dbc.Col(html.Img(src = LOGO, height = "70px")),
+        dbc.Col(html.Img(src = LOGO, height = "70px"),className="me-auto"),
         
         dbc.Col(
             dbc.NavbarBrand('Paris Baguette UK', style = {'color' :'Black','fontSize':'35px'})
@@ -88,7 +88,7 @@ body_app = dbc.Container([
     html.Div(id = 'dropdown-div', children =[
         dcc.Dropdown(id = 'site-dropdown',
                  options = [{'label': i, 'value' : i} for i in np.append(['All'],df['Site'].unique())],
-                 value = 'All')],style = {'width':'50%', 'padding': '15px', 'text-align':'center'}),
+                 value = 'All')],style = {'width':'100%', 'padding': '15px', 'text-align':'center'}),
             
     
     html.Br(),
@@ -156,8 +156,8 @@ def update_cards(base):
         icon2 = "bi bi-caret-up-fill text-danger" if diff_2 >0 else "bi bi-caret-down-fill text-success"
     
     
-        cogs_base = (dfg['COGS'].iloc[-1])/(dfg['Net sales'].iloc[-1])
-        cogs_comp = dfg['COGS'].iloc[-2]/dfg['Net sales'].iloc[-2]
+        cogs_base = (dfg['COGS'].iloc[-1])/(dfg['Net sales'].iloc[-1])+0.02
+        cogs_comp = dfg['COGS'].iloc[-2]/dfg['Net sales'].iloc[-2]+0.02
         diff_4 = cogs_base - cogs_comp
         icon4 = "bi bi-caret-up-fill text-danger" if diff_4 >0 else "bi bi-caret-down-fill text-success"
         
@@ -231,7 +231,7 @@ def update_cards(base):
             [
                 html.H6('Sales', style = {'fontWeight':'Light','textAlign':'center' }),
                     
-                html.H3(children=[' {0}{1:,}'.format('£', sales_base),html.I(className= icon)], style ={'color':'#090059', 'textAlign':'center'}),
+                html.H3(children=[' {0}{1:,} '.format('£', sales_base),html.I(className= icon)], style ={'color':'#090059', 'textAlign':'center'}),
                 
             
                 dcc.Markdown(dangerously_allow_html= True,
@@ -294,7 +294,7 @@ def update_cards(base):
             [
                 html.H6(NPStext, style = {'fontWeight':'Light','textAlign':'center' }),
                     
-                html.H3(children=[(nps_base),html.I(className= icon3)], style ={'color':'#090059', 'textAlign':'center'}),
+                html.H3(children=['{:.0f} '.format(nps_base ),html.I(className= icon3)], style ={'color':'#090059', 'textAlign':'center'}),
                 
                 dcc.Markdown(dangerously_allow_html= True,
                     children = ('Previous Week ', nps_comp), style={'textAlign':'center'}),
@@ -325,17 +325,22 @@ def update_figure(base):
         fig.update_traces(hovertemplate=None)
 
         fig.update_layout(    
-            title="Sales and Labour",
+            title="",
             xaxis_title="",
             yaxis_title="",
             legend_title="",
             hovermode="x unified",
             legend=dict(
             yanchor="top",
-            y=0.99,
+            y=-0.40,
             xanchor="left",
-            x=0.01
+            x=-0.01
         ))
+
+        fig.update_layout(
+        margin=dict(l=5, r=10, t=10, b=10),
+        paper_bgcolor="LightSteelBlue",)
+        
         fig.update_layout(
             xaxis=dict(
             rangeselector=dict(
@@ -376,17 +381,23 @@ def update_figure(base):
         fig.update_traces(hovertemplate=None)
 
         fig.update_layout(    
-            title="Sales and Labour",
+            title="",
             xaxis_title="",
             yaxis_title="",
             legend_title="",
             hovermode="x unified",
             legend=dict(
             yanchor="top",
-            y=0.99,
+            y=-0.40,
             xanchor="left",
-            x=0.01
+            x=-0.01
         ))
+
+        fig.update_layout(
+        margin=dict(l=5, r=10, t=10, b=10),
+        paper_bgcolor="LightSteelBlue",)
+      
+
         fig.update_layout(
             xaxis=dict(
             rangeselector=dict(
@@ -442,10 +453,15 @@ def update_sourcefig(base):
                           values = 'Total',
                           title="Sales Source",
                           color_discrete_sequence=px.colors.sequential.dense,
-                          #width=800, height=400)
+                          
                           )
-        fig.update_traces(textinfo="label+percent parent")
+        fig.update_traces(textinfo="label+percent parent",hovertemplate=None)
         fig.add_trace(go.Sunburst(insidetextorientation='horizontal'))
+    
+        fig.update_layout(
+        margin=dict(l=15, r=15, t=30, b=20),
+        paper_bgcolor="LightSteelBlue",)
+        fig.update_layout(title_text='Sales Source', title_x=0.5)
        # fig.update_layout(
             #margin = dict(t=60, l=10, r=10, b=10),title_text='Sales Source', title_y=0.5)
         #fig.update_layout(title_text='Your title', title_x=0.5)
@@ -470,10 +486,13 @@ def update_sourcefig(base):
                           values = 'Total',
                           title="Sales Source",
                          color_discrete_sequence=px.colors.sequential.dense)
-        fig.update_traces(textinfo="label+percent parent")
+        fig.update_traces(textinfo="label+percent parent",hovertemplate=None)
         fig.add_trace(go.Sunburst(insidetextorientation='horizontal'))
        
-
+        fig.update_layout(
+        margin=dict(l=15, r=15, t=30, b=20),
+        paper_bgcolor="LightSteelBlue",)
+        fig.update_layout(title_text='Sales Source', title_x=0.5)
   
     return fig
 
