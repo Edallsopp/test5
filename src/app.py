@@ -66,10 +66,10 @@ group_sales = df.groupby(['Date']).agg({'Net sales':'sum'}).reset_index()
 
 navbar = dbc.Navbar(id= 'navbar', children = [
     dbc.Row([
-        dbc.Col(html.Img(src = LOGO, height = "70px"),className="me-auto"),
+        dbc.Col(html.Img(src = LOGO, height = "70px"), style={'float':'left'},className="me-auto", width=4),
         
         dbc.Col(
-            dbc.NavbarBrand('Paris Baguette UK', style = {'color' :'Black','fontSize':'35px'})
+            dbc.NavbarBrand('Paris Baguette UK', style = {'color' :'Black','fontSize':'30px'}),width=8
                             )
             ],align = 'center',className = 'ml-auto'),
         dbc.Col()
@@ -103,13 +103,13 @@ body_app = dbc.Container([
         dbc.Row([
             dbc.Col([
                   dcc.Graph('sales_graph'),
-              ], width=6, md=6,xs=12),
+              ], width=6, md=6,xs=12,style = {'padding':'12px 12px 12px 12px'}),
             
-
+        html.Br(),
 
             dbc.Col([
                   dcc.Graph('source_graph')  
-              ], width=6, md=6,xs=12 )
+              ], width=6, md=6,xs=12,style = {'padding':'12px 12px 12px 12px'})
           ]),
         
                     
@@ -461,7 +461,7 @@ def update_sourcefig(base):
         fig.update_layout(
         margin=dict(l=15, r=15, t=30, b=20),
         paper_bgcolor="LightSteelBlue",)
-        fig.update_layout(title_text='Sales Source', title_x=0.5)
+        fig.update_layout(title_text='Sales Source', title_x=0.5,title_y=0.98)
        # fig.update_layout(
             #margin = dict(t=60, l=10, r=10, b=10),title_text='Sales Source', title_y=0.5)
         #fig.update_layout(title_text='Your title', title_x=0.5)
@@ -492,7 +492,7 @@ def update_sourcefig(base):
         fig.update_layout(
         margin=dict(l=15, r=15, t=30, b=20),
         paper_bgcolor="LightSteelBlue",)
-        fig.update_layout(title_text='Sales Source', title_x=0.5)
+        fig.update_layout(title_text='Sales Source', title_x=0.5,title_y=0.98)
   
     return fig
 
