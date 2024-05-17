@@ -66,10 +66,10 @@ group_sales = df.groupby(['Date']).agg({'Net sales':'sum'}).reset_index()
 
 navbar = dbc.Navbar(id= 'navbar', children = [
     dbc.Row([
-        dbc.Col(html.Img(src = LOGO, height = "70px"), style={'float':'left'},className="me-auto", width=4),
+        dbc.Col(html.Img(src = LOGO, height = "70px"), style={'float':'left'},className="me-auto", width=3),
         
         dbc.Col(
-            dbc.NavbarBrand('Paris Baguette UK', style = {'color' :'Black','fontSize':'30px'}),width=8
+            dbc.NavbarBrand('Paris Baguette UK', style = {'color' :'Black','fontSize':'30px','float':'left'}),width=9
                             )
             ],align = 'center',className = 'ml-auto'),
         dbc.Col()
