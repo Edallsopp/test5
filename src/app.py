@@ -17,7 +17,7 @@ app = Dash(__name__, title="PB Dashboard",external_stylesheets=[dbc.themes.SANDS
 server = app.server
 
 
-LOGO = 'assets/blue_noBG.png'
+LOGO = 'assets/PB_Logo_White.png'
 def load_data(data_file: str) -> pd.DataFrame:
     '''
     Load data from /data directory
@@ -66,12 +66,12 @@ group_sales = df.groupby(['Date']).agg({'Net sales':'sum'}).reset_index()
 
 navbar = dbc.Navbar(id= 'navbar', children = [
     dbc.Row([
-        dbc.Col(html.Img(src = LOGO, height = "70px"), style={'float':'left'},className="me-auto", width=3),
+        dbc.Col(html.Img(src = LOGO, height = "70px"), style={'float':'left'},className="me-auto", width=1),
         
         dbc.Col(
-            dbc.NavbarBrand('Paris Baguette UK', style = {'color' :'Black','fontSize':'30px','float':'left'}),width=9
+            dbc.NavbarBrand('PARIS BAGUETTE UK', style = {'color' :'White','fontSize':'30px','float':'left'}),width=10
                             )
-            ],align = 'center',className = 'ml-auto'),
+            ],align = 'center',className = 'me-auto'),
         dbc.Col()
         ], style={'padding-left':'20px', 'padding-right':'20px'})
 
@@ -87,8 +87,8 @@ body_app = dbc.Container([
     
     html.Div(id = 'dropdown-div', children =[
         dcc.Dropdown(id = 'site-dropdown',
-                 options = [{'label': i, 'value' : i} for i in np.append(['All'],df['Site'].unique())],
-                 value = 'All')],style = {'width':'100%', 'padding': '15px', 'text-align':'center'}),
+                 options = [{'label': i, 'value' : i} for i in np.append(['ALL'],df['Site'].unique())],
+                 value = 'ALL')],style = {'width':'100%', 'padding': '15px', 'text-align':'center'}),
             
     
     html.Br(),
@@ -142,7 +142,7 @@ def update_cards(base):
     
    
    
-    if base == 'All':
+    if base == 'ALL':
         
         sales_base = dfg['Net sales'].iloc[-1]
         sales_comp = dfg['Net sales'].iloc[-2]
@@ -318,7 +318,7 @@ def update_figure(base):
     
     df_site = df[df['Site']== base]
     
-    if base =='All':
+    if base =='ALL':
         
         fig = px.line(dfg, x="Date", y= ["Net sales","Labour £"], title='Net Sales and Labour')
         fig.update_xaxes(showgrid=False)
@@ -438,7 +438,7 @@ def update_sourcefig(base):
     
     source_site = source[source['Site']== base]
     
-    if base =='All':
+    if base =='ALL':
         
         source_group = sourceg.iloc[-1]
         newg = source_group.transpose().reset_index()
