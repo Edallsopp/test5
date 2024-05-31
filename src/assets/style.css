@@ -1,11 +1,18 @@
 @font-face { 
     font-family: "PBSignature-RegularText";
     font-style: normal;
-    font-weight: 300;
+    font-weight: 200;
     src: 
       url(/assets/PBSignature-RegularText.ttf) format("truetype");
   }
 
+  @font-face { 
+    font-family: "PBSignature-RegDisplayInline";
+    font-style: normal;
+    font-weight: 200;
+    src: 
+      url(/assets/PBSignature-RegDisplayInline.ttf) format("truetype");
+  }
 
 body {
 
@@ -16,9 +23,15 @@ body {
 
 #navbar{
     background-color:#001E60 !important;
-    font-family: "PBSignature-RegularText" !important;
+    font-family: "PBSignature-RegDisplayInline" !important;
 }
 
+
+#logo {
+
+    display: flex;
+    
+}
 
 
   

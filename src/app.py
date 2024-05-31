@@ -66,12 +66,12 @@ group_sales = df.groupby(['Date']).agg({'Net sales':'sum'}).reset_index()
 
 navbar = dbc.Navbar(id= 'navbar', children = [
     dbc.Row([
-        dbc.Col(html.Img(src = LOGO, height = "70px"), style={'float':'left'},className="me-auto", width=1),
+        dbc.Col(html.Img(src = LOGO, height = "70px"), style={'display':'flex'},xs = 12, sm = 3, md = 3, lg = 3, xl = 3),
         
         dbc.Col(
-            dbc.NavbarBrand('PARIS BAGUETTE UK', style = {'color' :'White','fontSize':'30px','float':'left'}),width=10
+            dbc.NavbarBrand('PARIS BAGUETTE UK', style = {'color' :'White','fontSize':'30px','float':'left'}),width=9, className='d-none d-sm-block',
                             )
-            ],align = 'center',className = 'me-auto'),
+            ],align = 'center',className = 'ml-auto'),
         dbc.Col()
         ], style={'padding-left':'20px', 'padding-right':'20px'})
 
@@ -168,7 +168,7 @@ def update_cards(base):
         icon3 = "bi bi-caret-up-fill text-success" if diff_3 >0 else "bi bi-caret-down-fill text-danger"
         
         
-    elif base == 'CPU':
+    elif base == 'SOT':
         
         sales_base = df[df['Site'] ==base]['Net sales'].iloc[-1]
         sales_comp = df[df['Site'] ==base]['Net sales'].iloc[-2]
