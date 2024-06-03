@@ -156,10 +156,11 @@ def update_cards(base):
         icon2 = "bi bi-caret-up-fill text-danger" if diff_2 >0 else "bi bi-caret-down-fill text-success"
     
     
-        cogs_base = (dfg['COGS'].iloc[-1])/(dfg['Net sales'].iloc[-1])+0.02
-        cogs_comp = dfg['COGS'].iloc[-2]/dfg['Net sales'].iloc[-2]+0.02
+        cogs_base = (dfg['COGS'].iloc[-1])/(dfg['Net sales'].iloc[-1])+0.04
+        cogs_comp = dfg['COGS'].iloc[-2]/dfg['Net sales'].iloc[-2]+0.04
         diff_4 = cogs_base - cogs_comp
         icon4 = "bi bi-caret-up-fill text-danger" if diff_4 >0 else "bi bi-caret-down-fill text-success"
+    
         
         nps_base = df['NPS'].iloc[-3:-1].mean()
         nps_comp = df['NPS'].iloc[-5:-3].mean()
@@ -211,8 +212,8 @@ def update_cards(base):
         diff_2 = labour_base - labour_comp
         icon2 = "bi bi-caret-up-fill text-danger" if diff_2 >0 else "bi bi-caret-down-fill text-success"
         
-        cogs_base = df[df['Site'] ==base]['COGS'].iloc[-1]/df[df['Site'] ==base]['Net sales'].iloc[-1]+0.02
-        cogs_comp = df[df['Site'] ==base]['COGS'].iloc[-2]/df[df['Site'] ==base]['Net sales'].iloc[-2]+0.02
+        cogs_base = df[df['Site'] ==base]['COGS'].iloc[-1]/df[df['Site'] ==base]['Net sales'].iloc[-1]+0.04
+        cogs_comp = df[df['Site'] ==base]['COGS'].iloc[-2]/df[df['Site'] ==base]['Net sales'].iloc[-2]+0.04
         diff_4 = cogs_base - cogs_comp
         icon4 = "bi bi-caret-up-fill text-danger" if diff_4 >0 else "bi bi-caret-down-fill text-success"
         
@@ -271,18 +272,19 @@ def update_cards(base):
       
         dbc.CardBody(
             [
-                html.H6('COGS', style = {'fontWeight':'Light','textAlign':'center' }),
-                    
+                html.H6('COGS', style = {'fontWeight':'Light','textAlign':'center'}),
+ 
                 html.H3(children=['{}{:.2%} '.format('', cogs_base), html.I(className= icon4)], style ={'color':'#090059', 'textAlign':'center'}),
                
                 dcc.Markdown(dangerously_allow_html= True,
                     children = ['{}{:.2%}'.format('Previous Week ', cogs_comp)], style={'textAlign':'center'}),
                 
                 dcc.Markdown(dangerously_allow_html= True,
-                    children = ['{:.2%} pt.'.format(diff_4)], style={'textAlign':'center'})
+                    children = ['{:.2%} pt.'.format(diff_4)], style={'textAlign':'center'}),
                 
-                ]
-            
+                
+                ],
+
             )
             
         ]
