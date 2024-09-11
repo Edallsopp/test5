@@ -156,8 +156,8 @@ def update_cards(base):
         icon2 = "bi bi-caret-up-fill text-danger" if diff_2 >0 else "bi bi-caret-down-fill text-success"
     
     
-        cogs_base = (dfg['COGS'].iloc[-1])/(dfg['Net sales'].iloc[-1])+0.04
-        cogs_comp = dfg['COGS'].iloc[-2]/dfg['Net sales'].iloc[-2]+0.04
+        cogs_base = (dfg['COGS'].iloc[-1])/(dfg['Net sales'].iloc[-1])
+        cogs_comp = dfg['COGS'].iloc[-2]/dfg['Net sales'].iloc[-2]
         diff_4 = cogs_base - cogs_comp
         icon4 = "bi bi-caret-up-fill text-danger" if diff_4 >0 else "bi bi-caret-down-fill text-success"
     
@@ -212,8 +212,8 @@ def update_cards(base):
         diff_2 = labour_base - labour_comp
         icon2 = "bi bi-caret-up-fill text-danger" if diff_2 >0 else "bi bi-caret-down-fill text-success"
         
-        cogs_base = df[df['Site'] ==base]['COGS'].iloc[-1]/df[df['Site'] ==base]['Net sales'].iloc[-1]+0.04
-        cogs_comp = df[df['Site'] ==base]['COGS'].iloc[-2]/df[df['Site'] ==base]['Net sales'].iloc[-2]+0.04
+        cogs_base = df[df['Site'] ==base]['COGS'].iloc[-1]/df[df['Site'] ==base]['Net sales'].iloc[-1]
+        cogs_comp = df[df['Site'] ==base]['COGS'].iloc[-2]/df[df['Site'] ==base]['Net sales'].iloc[-2]
         diff_4 = cogs_base - cogs_comp
         icon4 = "bi bi-caret-up-fill text-danger" if diff_4 >0 else "bi bi-caret-down-fill text-success"
         
