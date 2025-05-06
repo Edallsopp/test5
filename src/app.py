@@ -34,10 +34,10 @@ df['Date'] = np.array(pd.to_datetime(df['Date'], dayfirst=True, errors ='coerce'
 df=df.replace([np.nan, -np.inf], 0)
 df['Dine In'] = df['Food Eat in £'] + df['Drink Eat in £']
 df['Take Out'] = df['Food T/O £'] + df['Drink T/O £']
-df['Instore'] = df['Dine In']+ df['Take Out']
-df['External'] = df['Deliveroo'] + df['WholeSale'] + df['Catering'] + df['Catering- Partner']
+df['Instore'] = df['Dine In']+ df['Take Out'] +df['Other']
+df['External'] = df['Deliveroo'] + df['WholeSale'] + df['Catering'] + df['Catering- Partner'] + df['Just Eat'] + df['Uber Eats']
 df['Sales'] = df['Instore'] + df['External']
-source = df[['Site','Date','Food Eat in £','Drink Eat in £','Food T/O £','Drink T/O £','Deliveroo','WholeSale','Catering','Catering- Partner']]
+source = df[['Site','Date','Food Eat in £','Drink Eat in £','Food T/O £','Drink T/O £','Deliveroo','WholeSale','Catering','Catering- Partner','Other','Just Eat','Uber Eats']]
 #np.array(pd.to_datetime(df['Date']).dt.strftime('%m/%d/%Y'))
 #df["Date"] = df["Date"].astype('datetime64[ns]')
 #df['NPS'].astype(int)
@@ -45,7 +45,7 @@ source = df[['Site','Date','Food Eat in £','Drink Eat in £','Food T/O £','Dri
 #dfg grouped sites by date
 dfg = df.groupby(['Date'])[['Net sales','Labour £','Labour %','NPS', 'COGS']].sum()
 dfg.reset_index(inplace=True)
-sourceg = df.groupby(['Date'])[['Food Eat in £','Drink Eat in £','Food T/O £','Drink T/O £','Deliveroo','WholeSale','Catering','Catering- Partner']].sum()
+sourceg = df.groupby(['Date'])[['Food Eat in £','Drink Eat in £','Food T/O £','Drink T/O £','Deliveroo','WholeSale','Catering','Catering- Partner','Other','Just Eat','Uber Eats']].sum()
 
 #### weekly sales ####
 weekly_sales = df.groupby(['Date','Site']).agg({'Net sales':'sum'}).reset_index()
@@ -62,7 +62,7 @@ group_sales = df.groupby(['Date']).agg({'Net sales':'sum'}).reset_index()
 
 #graph - all sites
 
-#--- Navbar definged
+#--- Navbar defined
 
 navbar = dbc.Navbar(id= 'navbar', children = [
     dbc.Row([
@@ -444,8 +444,8 @@ def update_sourcefig(base):
         
         source_group = sourceg.iloc[-1]
         newg = source_group.transpose().reset_index()
-        newg.insert( 0,"Total", ['Dine In', 'Dine In','Take Out','Take Out', 'Delivery','Delivery','Catering','Catering'], True)
-        newg.insert( 0, "Sub",['Instore', 'Instore','Instore','Instore', 'External','External','External','External'], True)
+        newg.insert( 0,"Total", ['Dine In', 'Dine In','Take Out','Take Out', 'Delivery','Delivery','Catering','Catering', 'Take Out','Delivery','Delivery'], True)
+        newg.insert( 0, "Sub",['Instore', 'Instore','Instore','Instore', 'External','External','External','External', 'Instore','External','External'], True)
         newg.columns = ['Source1','Source2','Source3','Total']
         newg.replace({"Food Eat in £": "Food","Drink Eat in £":"Drink",
                      "Food T/O £":"Food","Drink T/O £":"Drink"}, 
@@ -476,8 +476,8 @@ def update_sourcefig(base):
         
         source_site1 = source_site.iloc[-1]
         new = source_site1.transpose().reset_index()
-        new.insert( 0,"Total", ['', '', 'Dine In', 'Dine In','Take Out','Take Out', 'Delivery','Delivery','Catering','Catering'], True)
-        new.insert( 0, "Sub",['', '', 'Instore', 'Instore','Instore','Instore', 'External','External','External','External'], True)
+        new.insert( 0,"Total", ['', '', 'Dine In', 'Dine In','Take Out','Take Out', 'Delivery','Delivery','Catering','Catering','Take Out','Delivery','Delivery'], True)
+        new.insert( 0, "Sub",['', '', 'Instore', 'Instore','Instore','Instore','External','External','External','External','Instore','External','External'], True)
         new2 = new.drop(0).drop(1)
         new2.columns = ['Source1','Source2','Source3','Total']
         new2.replace({"Food Eat in £": "Food","Drink Eat in £":"Drink",
