@@ -28,6 +28,8 @@ def load_data(data_file: str) -> pd.DataFrame:
 
 df = load_data("Weekly_Data.csv")
 
+WEEK = df['Date'].iloc[-1]
+
 df.dropna(subset=['Site'], inplace=True)
 #df['Date'] = df['Date'].dt.strftime('%Y-%m-%d')
 df['Date'] = np.array(pd.to_datetime(df['Date'], dayfirst=True, errors ='coerce'))
@@ -72,7 +74,9 @@ navbar = dbc.Navbar(id= 'navbar', children = [
             dbc.NavbarBrand('PARIS BAGUETTE UK', style = {'color' :'White','fontSize':'30px','float':'left'}),width=9, className='d-none d-sm-block',
                             )
             ],align = 'center',className = 'ml-auto'),
-        dbc.Col()
+        dbc.Col(
+            dbc.NavbarBrand(WEEK, style = {'color' :'White','fontSize':'30px','float':'right'})
+        )
         ], style={'padding-left':'20px', 'padding-right':'20px'})
 
 # define content of cards
