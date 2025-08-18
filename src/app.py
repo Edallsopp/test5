@@ -150,6 +150,7 @@ def update_cards(base):
         
         sales_base = dfg['Net sales'].iloc[-1]
         sales_comp = dfg['Net sales'].iloc[-2]
+        #sales_comp2 = dfg['Net sales'].iloc[-53]
         diff_1 = sales_base - sales_comp
         icon = "bi bi-caret-up-fill text-success" if diff_1 >0 else "bi bi-caret-down-fill text-danger"
         
@@ -245,6 +246,8 @@ def update_cards(base):
                 dcc.Markdown(dangerously_allow_html= True,
                     children = ['{0}{1:,}'.format('£', diff_1).replace('£-','-£')], style={'textAlign':'center'})
                  
+                #dcc.Markdown(dangerously_allow_html= True,
+                 #   children = ['{0}{1:,}'.format('Previous Year £', sales_comp2)], style={'textAlign':'center'}), #
                 ]
             
             )
